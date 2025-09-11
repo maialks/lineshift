@@ -67,7 +67,7 @@ export function activate(context: vscode.ExtensionContext) {
           const target = hasOperator ? currentLine + lineJump : lineJump;
 
           // Validação de formato e operadores
-          if ((hasOperator && !hasSingleOperator(input)) || !regex.test(input)) {
+          if (!regex.test(input) || (hasOperator && !hasSingleOperator(input))) {
             return 'Invalid input: must be a number with at most one sign (+, -, j, k)';
           }
 
