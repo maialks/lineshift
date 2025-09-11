@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
     .showInformationMessage(
       'This extension works best with relative line numbers. Would you like to enable them?',
       'Yes',
-      'Now'
+      'No'
     )
     .then((selection) => {
       if (selection === 'Yes') {
@@ -59,15 +59,17 @@ export function activate(context: vscode.ExtensionContext) {
         placeHolder: 'Type the number of lines you want to jump',
         validateInput(input) {
           if (input === '') return undefined; // input vazio é válido (não faz nada)
+          const inputLower = input.toLowerCase();
 
+          console.log(inputLower);
           const hasOperator =
-            operators.includes(input.charAt(0)) ||
-            operators.includes(input.charAt(input.length - 1));
-          const lineJump = parseLineJump(input);
+            operators.includes(inputLower.charAt(0)) ||
+            operators.includes(inputLower.charAt(inputLower.length - 1));
+          const lineJump = parseLineJump(inputLower);
           const target = hasOperator ? currentLine + lineJump : lineJump;
 
           // Validação de formato e operadores
-          if (!regex.test(input) || (hasOperator && !hasSingleOperator(input))) {
+          if (!regex.test(inputLower) || (hasOperator && !hasSingleOperator(inputLower))) {
             return 'Invalid input: must be a number with at most one sign (+, -, j, k)';
           }
 
@@ -81,11 +83,12 @@ export function activate(context: vscode.ExtensionContext) {
       })
       .then((input) => {
         if (!input) return;
+        const inputLower = input.toLowerCase();
 
-        const lineJump = parseLineJump(input);
+        const lineJump = parseLineJump(inputLower);
         const target =
-          operators.includes(input.charAt(0)) ||
-          operators.includes(input.charAt(input.length - 1))
+          operators.includes(inputLower.charAt(0)) ||
+          operators.includes(inputLower.charAt(inputLower.length - 1))
             ? currentLine + lineJump // input relativo
             : lineJump; // input absoluto
 
