@@ -60,11 +60,14 @@ export function activate(context: vscode.ExtensionContext) {
         validateInput(input) {
           if (input === '') return undefined; // input vazio é válido (não faz nada)
 
+          const hasOperator =
+            operators.includes(input.charAt(0)) ||
+            operators.includes(input.charAt(input.length - 1));
           const lineJump = parseLineJump(input);
-          const target = currentLine + lineJump;
+          const target = hasOperator ? currentLine + lineJump : lineJump;
 
           // Validação de formato e operadores
-          if (!hasSingleOperator(input) || !regex.test(input)) {
+          if ((hasOperator && !hasSingleOperator(input)) || !regex.test(input)) {
             return 'Invalid input: must be a number with at most one sign (+, -, j, k)';
           }
 

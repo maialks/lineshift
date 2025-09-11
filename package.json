@@ -2,20 +2,29 @@
   "name": "lineshift",
   "displayName": "LineShift",
   "description": "A extension that improves code navigation by allowing relative line jumps, making development faster and easier. ",
-  "version": "0.0.1",
+  "icon": "icon.png",
+  "version": "0.0.2",
+  "publisher": "lkmss",
   "engines": {
     "vscode": "^1.103.0"
   },
   "categories": [
-    "Other"
+    "Other",
+    "Keymaps"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onCommand:lineshift.jump"
+  ],
+  "repository": {
+    "url": "https://github.com/maialks/lineshift"
+  },
+  "license": "MIT",
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
         "command": "lineshift.jump",
-        "title": "Hello World"
+        "title": "LineShift: Jump to Line"
       }
     ],
     "keybindings": [
