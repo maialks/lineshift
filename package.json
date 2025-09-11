@@ -3,7 +3,7 @@
   "displayName": "LineShift",
   "description": "A extension that improves code navigation by allowing relative line jumps, making development faster and easier. ",
   "icon": "icon.png",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "lkmss",
   "engines": {
     "vscode": "^1.103.0"
