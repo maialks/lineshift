@@ -33,10 +33,10 @@ export function activate(context: vscode.ExtensionContext) {
     const sign = str.charAt(0) || str.charAt(str.length - 1);
     switch (sign) {
       case '+':
-      case 'k':
+      case 'j':
         return parseInt(str.replace(/\D/g, ''), 10);
       case '-':
-      case 'j':
+      case 'k':
         return -parseInt(str.replace(/\D/g, ''), 10);
       default:
         return parseInt(str, 10);
@@ -49,14 +49,15 @@ export function activate(context: vscode.ExtensionContext) {
     if (!editor) {
       return vscode.window.showInformationMessage('No active editor found!');
     }
-
+    
+    const docTotal = editor.document.lineCount
     const currentLine = editor.selection.active.line;
     const upperBound = currentLine; // linhas acima disponíveis
-    const lowerBound = editor.document.lineCount - currentLine - 1; // linhas abaixo disponíveis
+    const lowerBound = docTotal - currentLine - 1; // linhas abaixo disponíveis
 
     vscode.window
       .showInputBox({
-        placeHolder: 'Type the number of lines you want to jump',
+        placeHolder: `Enter relative (j,+/k,-) or absolute line number (${docTotal} total)`,
         validateInput(input) {
           if (input === '') return undefined; // input vazio é válido (não faz nada)
           const inputLower = input.toLowerCase();
